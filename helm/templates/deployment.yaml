@@ -16,10 +16,10 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: {{ .Values.AppName }}
+        app: {{.Values.AppName}}
     spec:
       containers:
-        - image: { { .Values.image.repository } }: {{ .Values.image.tag }}
+        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           name: techtrends
           imagePullPolicy: {{.Values.image.pullPolciy}}
           livenessProbe:            
