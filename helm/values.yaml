@@ -1,6 +1,8 @@
 AppName: techtrends
 namespace:
   name: sandbox
+  apps: techtrends
+
 service:
   port: 4111
   targetPort: 3111
@@ -10,7 +12,9 @@ image:
   repository: jcabrer2057/techtrends
   tag: latest
   pullPolicy: IfNotPresent
+
 replicaCount: 1
+
 resources:
   requests:
     cpu: 250m
@@ -18,12 +22,15 @@ resources:
   limits:
     CPU: 500m
     memory: 128Mi
+
 ports:
   containerPort: 3111
   protocol: TCP
-livenessProbe:
-  path: /healthz
-  port: 3111
 readinessProbe:
-  path: /healthz
-  port: 3111
+  httpGet:
+    path: /healthz
+    port: 3111
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 3111
