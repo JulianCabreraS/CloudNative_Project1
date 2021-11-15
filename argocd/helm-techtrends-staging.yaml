@@ -13,5 +13,5 @@ spec:
       valueFiles:
         - values-staging.yaml
     path: helm
-    repoURL: https://github.com/JulianCabreraS/CloudNative_Project1
+    repoURL: https://github.com/JulianCabreraS/CloudNative_Project1.git
     targetRevision: HEAD
