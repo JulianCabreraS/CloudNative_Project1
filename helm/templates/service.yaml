@@ -3,8 +3,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: techtrends
-  name: techtrends
+    app: { { .Values.AppName } }
+  name: { { .Values.AppName } }
   namespace: { { .Values.namespace.name } }
 spec:
   ports:
@@ -12,7 +12,5 @@ spec:
       protocol: { { .Values.service.protocol } }
       targetPort: { { .Values.service.targetPort } }
   selector:
-    app: techtrends
+    app: { { .Values.AppName } }
   type: { { .Values.service.type } }
-status:
-  loadBalancer: {}
