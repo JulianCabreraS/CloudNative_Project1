@@ -22,18 +22,16 @@ spec:
         - image: { { .Values.image.repository } }: {{ .Values.image.tag }}
           name: techtrends
           imagePullPolicy: {{.Values.image.pullPolciy}}
-          livenessProbe:
-            httpGet:
-              path: {{.Values.livenessProbe.path}}
-              port: {{.Values.livenessProbe.port}}                        
-          readinessProbe:
-            httpGet:
-              path:  {{.Values.livenessProbe.path}}
-              port: {{.Values.livenessProbe.port}}             
+          livenessProbe:            
+            path: {{.Values.livenessProbe.path}}
+            port: {{.Values.livenessProbe.port}}                        
+          readinessProbe:            
+            path:  {{.Values.livenessProbe.path}}
+            port: {{.Values.livenessProbe.port}}             
           resources:
             requests:
-              memory: {{.Values.resources.request.memory}}
-              cpu: {{.Values.resources.request.cpu}}
+              memory: {{.Values.resources.requests.memory}}
+              cpu: {{.Values.resources.requests.cpu}}
             limits:
               memory: {{.Values.resources.limits.memory}}
               cpu: {{.Values.resources.limits.cpu}}
