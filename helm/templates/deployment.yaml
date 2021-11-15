@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: techtrends
-  name: techtrends
+    app: {{ .Values.AppName }}
+  name: {{ .Values.AppName }}
   namespace: { { .Values.namespace.name } }
 spec:
   replicas: { { .Values.replicaCount } }
   selector:
     matchLabels:
-      app: techtrends
+      app: {{ .Values.AppName }}
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: techtrends
+        app: {{ .Values.AppName }}
     spec:
       containers:
         - image: { { .Values.image.repository } }: {{ .Values.image.tag }}
