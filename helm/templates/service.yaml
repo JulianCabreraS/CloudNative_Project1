@@ -1,16 +1,16 @@
+
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
-    app: { { .Values.AppName } }
-  name: { { .Values.AppName } }
-  namespace: { { .Values.namespace.name } }
+    app: techtrends
+  name: techtrends
+  namespace: {{ .Values.namespace.name }}
 spec:
   ports:
-    - port: { { .Values.service.port } }
-      protocol: { { .Values.service.protocol } }
-      targetPort: { { .Values.service.targetPort } }
+    - port: {{ .Values.service.port }}
+      protocol: {{ .Values.service.protocol }}
+      targetPort: {{ .Values.service.targetPort }}
   selector:
-    app: { { .Values.AppName } }
-  type: { { .Values.service.type } }
+    app: techtrends
+  type: {{ .Values.service.type }}
