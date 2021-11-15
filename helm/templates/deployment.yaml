@@ -22,12 +22,17 @@ spec:
         - image: {{ .Values.image.repository }}:{{.Values.image.tag}}
           name: {{.Values.AppName}}
           imagePullPolicy: {{.Values.image.pullPolciy}}
-          livenessProbe:            
-            path: {{.Values.livenessProbe.path}}
-            port: {{.Values.livenessProbe.port}}                        
+          ports:
+          - containerPort: {{ .Values.ports.containerPort }}
+            protocol: {{ .Values.ports.protocol }}
+          livenessProbe:   
+            httpGet:         
+              path: {{.Values.livenessProbe.path}}
+              port: {{.Values.livenessProbe.port}}                        
           readinessProbe:            
-            path:  {{.Values.livenessProbe.path}}
-            port: {{.Values.livenessProbe.port}}             
+            httpGet:
+              path:  {{.Values.livenessProbe.path}}
+              port: {{.Values.livenessProbe.port}}             
           resources:
             requests:
               memory: {{.Values.resources.requests.memory}}
@@ -35,4 +40,3 @@ spec:
             limits:
               memory: {{.Values.resources.limits.memory}}
               cpu: {{.Values.resources.limits.cpu}}
-status: {}
