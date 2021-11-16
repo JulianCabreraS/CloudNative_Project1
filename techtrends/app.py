@@ -3,6 +3,7 @@ import sqlite3
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 import logging
+import sys
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
@@ -45,18 +46,24 @@ def post(post_id):
     if post is None:
        
       ## About page retrieved
-      app.logger.info('Non existing article was tried to be accessed')  
-      return render_template('404.html'), 404
+        app.logger.info("Non-Existing Article")
+        logger.info("404 - Article does not exists")
+        logger.addHandler(h1)
+        logger.addHandler(h2)
+        return render_template('404.html'), 404
     else:
-      ## About page retrieved
-      app.logger.info('Article \"' +post['title']+ '\" retrieved!')  
-      return render_template('post.html', post=post)
+        ## About page retrieved
+        app.logger.info('Article \"' +post['title']+ '\" retrieved!')  
+        return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
      ## About page retrieved
-    app.logger.info('About Us page is retrieved')
+    app.logger.info("/About Request Succesfully")
+    logger.info("About Us")
+    logger.addHandler(h1)
+    logger.addHandler(h2)
     return render_template('about.html')
 
 @app.route('/healthz')
@@ -105,7 +112,10 @@ def create():
             connection.close()
 
             ## Title created
-            logging.info('Article "{}" created'.format(title))
+            app.logger.info("Article Created")
+            logger.info(f"Article {title} created")
+            logger.addHandler(h1)
+            logger.addHandler(h2)
 
             return redirect(url_for('index'))
 
@@ -113,13 +123,11 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
-        ## stream logs to app.log file
-   logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("app.log"),
-        logging.StreamHandler()
-    ]
-   )
-   app.run(host='0.0.0.0', port='3111')
+    ## stream logs to app.log file
+    logger = logging.getLogger("__name__")
+    logging.basicConfig(filename='app.log',level=logging.DEBUG)
+    h1 = logging.StreamHandler(sys.stdout)
+    h1.setLevel(logging.DEBUG)
+    h2 = logging.StreamHandler(sys.stderr)
+    h2.setLevel(logging.ERROR)
+    app.run(host='0.0.0.0', port='3111')
